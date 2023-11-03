@@ -26,7 +26,7 @@ const volunteerSchema = new mongoose.Schema({
     required: true,
   },
   interestAreas: {
-    type: Number,
+    type: [String],
     required: true,
   },
   assignedEvents: [

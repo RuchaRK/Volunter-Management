@@ -2,10 +2,7 @@ const Volunteer = require("../modules/volunteer.model");
 
 async function showAllVolunteers() {
   try {
-    const allVolunteers = await Volunteer.find().populate(
-      "assignedWard",
-      "specializations wardNumber"
-    );
+    const allVolunteers = await Volunteer.find();
 
     return allVolunteers;
   } catch (error) {

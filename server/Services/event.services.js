@@ -18,8 +18,8 @@ async function showAEvent(eventId) {
 
 async function addNewEvent(EventData) {
   try {
-    const Event = await Event(EventData);
-    await Event.save();
+    const event = new Event(EventData);
+    await event.save();
     return await showAllEvents();
   } catch (error) {
     throw new Error(error);
