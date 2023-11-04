@@ -21,11 +21,6 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
     }
   }, [wizardStatus]);
 
-  // const onSubmit = (values) => {
-  //   handleSubmit(values);
-  //   closeModal();
-  // };
-
   const onSubmit = (values, { setErrors }) => {
     // Check if the roleSpecificVolunteers array is empty
     if (
@@ -40,7 +35,6 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
       return;
     }
     handleSubmit(values);
-    closeModal();
   };
 
   return (

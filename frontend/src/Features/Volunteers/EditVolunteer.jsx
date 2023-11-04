@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { updateEvent } from '../../Reducer/event.slice';
 import { BiEdit } from 'react-icons/bi';
-import { EventModel } from './EventModel';
+import { VolunteerModel } from './VolunteerModel';
 
 export const EditVolunteer = ({ objectToShow }) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const EditVolunteer = ({ objectToShow }) => {
       <button onClick={openEditModal}>
         <BiEdit />
       </button>
-      <EventModel
+      <VolunteerModel
         modalIsOpen={editModal}
         closeModal={closeEditModal}
         handleSubmit={editDetails}

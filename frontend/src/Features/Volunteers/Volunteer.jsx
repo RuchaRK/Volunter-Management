@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../Reducer/volunteer.slice';
 import { ListPage } from '../../Components/ListPage';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { EditEvent } from './EditEvent';
-import { EventModel } from './EventModel';
+import { EditVolunteer } from './EditVolunteer';
+import { VolunteerModel } from './VolunteerModel';
 
 export const Volunteer = () => {
   const { status, error, volunteers } = useSelector((state) => state.volunteers);
@@ -45,13 +45,13 @@ export const Volunteer = () => {
         <ListPage
           column={['Event Name', 'Location', 'Date', 'Time']}
           data={volunteers.map((subject) => [
-            event.eventName,
-            event.location,
-            new Date(event.date).toISOString().split('T')[0],
-            new Date(event.date).toISOString().split('T')[1].split('.')[0],
+            subject.eventName,
+            subject.location,
+            new Date(subject.date).toISOString().split('T')[0],
+            new Date(subject.date).toISOString().split('T')[1].split('.')[0],
 
-            <EditEvent key={event._id} objectToShow={event} />,
-            <button key={event._id} onClick={() => deleteEventById(event._id)}>
+            <EditVolunteer key={subject._id} objectToShow={subject} />,
+            <button key={subject._id} onClick={() => deleteEventById(subject._id)}>
               <AiOutlineDelete />
             </button>
           ])}
@@ -60,7 +60,7 @@ export const Volunteer = () => {
           image=""
           openForm={openModal}
         />
-        <EventModel modalIsOpen={modalIsOpen} closeModal={closeModal} handleSubmit={addNewEvent} />
+        <VolunteerModel modalIsOpen={modalIsOpen} closeModal={closeModal} handleSubmit={addNewEvent} />
       </div>
     </div>
   );
