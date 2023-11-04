@@ -26,8 +26,10 @@ export const Event = () => {
     setIsOpen(false);
   }
 
-  const addNewEvent = (patientData) => {
-    dispatch(addEvent(patientData));
+  const addNewEvent = (eventData) => {
+    console.log('Hi inside add new event');
+    console.log(eventData);
+    return dispatch(addEvent(eventData));
   };
 
   const deleteEventById = (id) => {

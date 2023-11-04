@@ -5,19 +5,14 @@ import { ButtonContainer, FormContainer, Title } from '../../Components/Model.st
 import { Formik, Field, Form, FieldArray } from 'formik';
 
 export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState }) => {
-  const { wizardStatus, events } = useSelector((state) => state.events);
+  const { wizardStatus } = useSelector((state) => state.events);
 
   const initialValues = {
     eventName: '',
     location: '',
     description: '',
     date: '',
-    roleSpecificVolunteers: [
-      {
-        role: '',
-        volunteers: ''
-      }
-    ]
+    roleSpecificVolunteers: [{}]
   };
 
   useEffect(() => {
@@ -26,18 +21,33 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
     }
   }, [wizardStatus]);
 
-  console.log(events);
+  // const onSubmit = (values) => {
+  //   handleSubmit(values);
+  //   closeModal();
+  // };
 
-  const onSubmit = (values) => {
-    console.log('Form submitted with values:', values);
-    // You can send the form data to your server or perform other actions here.
+  const onSubmit = (values, { setErrors }) => {
+    // Check if the roleSpecificVolunteers array is empty
+    if (
+      !values.roleSpecificVolunteers ||
+      values.roleSpecificVolunteers.length === 0 ||
+      values.roleSpecificVolunteers.role === '' ||
+      values.roleSpecificVolunteers.volunteers === ''
+    ) {
+      setErrors({
+        roleSpecificVolunteers: 'At least one role-specific volunteer is required.'
+      });
+      return;
+    }
+    handleSubmit(values);
+    closeModal();
   };
 
   return (
     <div>
       <Model isOpen={modalIsOpen} onRequestClose={closeModal}>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({values})=>{
+          {({ values }) => {
             return (
               <Form>
                 <FormContainer>
@@ -53,7 +63,6 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
                   Role Specific Volunteers:
                   <FieldArray name="roleSpecificVolunteers">
                     {({ push, remove }) => {
-                      console.log(values, initialValues);
                       return (
                         <div>
                           {values.roleSpecificVolunteers.map((_, index) => (
@@ -74,27 +83,21 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
                             </div>
                           ))}
                           <button type="button" onClick={() => push({ role: '', volunteers: '' })}>
-                            Add Role-Specific Volunteer
+                            Add Volunteer
                           </button>
                         </div>
                       );
                     }}
                   </FieldArray>
                   <ButtonContainer>
-                    {/* <button
-                      disabled={wizardStatus === 'loading'}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleSubmit(values);
-                        closeModal();
-                      }}>
+                    <button type="submit" disabled={wizardStatus === 'loading'}>
                       {wizardStatus === 'loading' ? 'Submitting...' : 'Submit'}
                     </button>
-                    <button onClick={closeModal}>close</button> */}
-                    <button type="submit">Submit</button>
+                    <button onClick={closeModal}>close</button>
                   </ButtonContainer>
                 </FormContainer>
-              </Form>)
+              </Form>
+            );
           }}
         </Formik>
       </Model>

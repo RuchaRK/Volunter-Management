@@ -38,6 +38,7 @@ eventRouter.get("/:eventId", async (req, res) => {
 eventRouter.post("/", async (req, res) => {
   try {
     const newEventData = req.body;
+    console.log(newEventData);
     const allEvents = await addNewEvent(newEventData);
     res.status(200).json({ message: "Success", allEvents });
   } catch (error) {
@@ -65,6 +66,7 @@ eventRouter.post("/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
     const updateData = req.body;
+
     const allEvents = await updateEvent(eventId, updateData);
     res.status(200).json({ message: "Success", allEvents });
   } catch (error) {

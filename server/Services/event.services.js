@@ -19,8 +19,9 @@ async function showAEvent(eventId) {
 async function addNewEvent(EventData) {
   try {
     const event = new Event(EventData);
-    await event.save();
-    return await showAllEvents();
+    const newSavedEvent = await event.save();
+    console.log("New saved event", newSavedEvent);
+    return newSavedEvent;
   } catch (error) {
     throw new Error(error);
   }

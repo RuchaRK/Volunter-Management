@@ -12,6 +12,7 @@ export const fetchAEvent = createAsyncThunk('events/fetchAEvent', async (id) => 
 });
 
 export const addEvent = createAsyncThunk('events/addEvent', async (newEvent) => {
+  console.log(newEvent);
   const response = await axios.post('/api/events', newEvent);
   return response.data?.allEvents;
 });
@@ -42,13 +43,11 @@ export const eventSlice = createSlice({
       state.status = 'loading';
     },
     [fetchEvents.fulfilled]: (state, action) => {
-      console.log(action);
       state.status = 'success';
       state.events = action.payload;
     },
     [fetchEvents.rejected]: (state, action) => {
       state.status = 'error';
-      console.log(action.error.message);
       state.error = action.error.message;
     },
     [fetchAEvent.pending]: (state) => {
@@ -60,7 +59,6 @@ export const eventSlice = createSlice({
     },
     [fetchAEvent.rejected]: (state, action) => {
       state.status = 'error';
-      console.log(action.error.message);
       state.error = action.error.message;
     },
     [addEvent.pending]: (state) => {
