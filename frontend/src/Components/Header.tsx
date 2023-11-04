@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <Greetings>
-        <h5>Your Partner in Health and Wellness!!!</h5>
+        <h3>Event Mosaic</h3>
       </Greetings>
 
       <IconContainer>

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
-import { BsHospitalFill } from 'react-icons/bs';
-import { FaUserInjured, FaHospitalUser } from 'react-icons/fa';
-import { BiLogOut, BiSolidNotepad } from 'react-icons/bi';
+import { MdOutlineEventAvailable } from 'react-icons/md';
+import { BsPeopleFill } from 'react-icons/bs';
+import { BiSolidDashboard, BiLogOut } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 import { routeName } from '../App.routes';
 
@@ -48,19 +48,19 @@ const IconContainer = styled.div`
 const FooterComponent = styled.div``;
 const menu = [
   {
-    route: routeName.HOSPITAL,
-    label: 'Hospital',
-    icon: <BsHospitalFill />
+    route: routeName.DASHBOARD,
+    label: 'Dashboard',
+    icon: <BiSolidDashboard />
   },
   {
-    route: routeName.PATIENTS,
-    label: 'Patient',
-    icon: <FaUserInjured />
+    route: routeName.VOLUNTEERS,
+    label: 'Volunteers',
+    icon: <BsPeopleFill />
   },
   {
-    route: routeName.WARD,
-    label: 'Ward',
-    icon: <FaHospitalUser />
+    route: routeName.EVENTS,
+    label: 'Events',
+    icon: <MdOutlineEventAvailable />
   }
 ];
 
@@ -69,7 +69,7 @@ export const SideBar = () => {
     <SideBarComponent>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Header>
-          <h2>MediLab</h2>
+          <h2></h2>
         </Header>
 
         <PagesContainer>
