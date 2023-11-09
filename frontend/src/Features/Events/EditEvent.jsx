@@ -30,7 +30,7 @@ export const EditEvent = ({ objectToShow }) => {
         modalIsOpen={editModal}
         closeModal={closeEditModal}
         handleSubmit={editDetails}
-        initialState={objectToShow}
+        initialState={{ ...objectToShow, date: objectToShow.date.split('.')[0] }}
       />
     </div>
   );

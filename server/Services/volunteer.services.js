@@ -2,8 +2,7 @@ const Volunteer = require("../modules/volunteer.model");
 
 async function showAllVolunteers() {
   try {
-    const allVolunteers = await Volunteer.find();
-
+    const allVolunteers = await Volunteer.find().populate("assignedEvents");
     return allVolunteers;
   } catch (error) {
     throw new Error(error);
@@ -12,7 +11,9 @@ async function showAllVolunteers() {
 
 async function showAVolunteer(volunteerId) {
   try {
-    const volunteer = await Volunteer.findById(volunteerId);
+    const volunteer = await Volunteer.findById(volunteerId).populate(
+      "assignedEvents"
+    );
     return volunteer;
   } catch (error) {
     throw new Error(error);

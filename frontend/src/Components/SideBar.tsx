@@ -14,7 +14,8 @@ const SideBarComponent = styled.div`
   justify-content: space-between;
   border-right: 1px solid #e2e8f0;
   height: 100%;
-  width: 100%;
+  min-width: 250px;
+  width: 250px;
   background: #fff;
   box-shadow:
     0px 5px 22px 4px rgba(0, 0, 0, 0.02),
@@ -43,9 +44,15 @@ const IconContainer = styled.div`
   padding: 12px 16px;
   align-items: center;
   justify-content: flex-start;
+  border-radius: 0px 50px 50px 0px;
+  background: transparent;
+  box-shadow: 5px 2px 9px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
 `;
 
-const FooterComponent = styled.div``;
+const FooterComponent = styled.div`
+  width: 100%;
+`;
 const menu = [
   {
     route: routeName.DASHBOARD,
@@ -69,7 +76,7 @@ export const SideBar = () => {
     <SideBarComponent>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Header>
-          <h2></h2>
+          <img src="/images/event.svg" height="150px" width="100px" />
         </Header>
 
         <PagesContainer>
@@ -79,7 +86,9 @@ export const SideBar = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? 'bold' : '',
-                  color: isActive ? '#002B9A' : 'black'
+                  color: isActive ? '#FFB800' : '#006B82',
+                  backgroundColor: isActive ? '#006B82' : '',
+                  borderRadius: '0px 50px 50px 0px'
                 };
               }}>
               <IconContainer>

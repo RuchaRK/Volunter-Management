@@ -5,6 +5,7 @@ import { ListPage } from '../../Components/ListPage';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { EditEvent } from './EditEvent';
 import { EventModel } from './EventModel';
+import { Link } from 'react-router-dom';
 
 export const Event = () => {
   const { status, error, events } = useSelector((state) => state.events);
@@ -27,8 +28,6 @@ export const Event = () => {
   }
 
   const addNewEvent = (eventData) => {
-    console.log('Hi inside add new event');
-    console.log(eventData);
     return dispatch(addEvent(eventData));
   };
 
@@ -44,8 +43,8 @@ export const Event = () => {
       <div>
         <ListPage
           column={['Event Name', 'Location', 'Date', 'Time']}
-          data={events.map((event) => [
-            event.eventName,
+          data={(events ?? []).map((event) => [
+            <Link to={event._id}>{event.eventName} </Link>,
             event.location,
             new Date(event.date).toISOString().split('T')[0],
             new Date(event.date).toISOString().split('T')[1].split('.')[0],

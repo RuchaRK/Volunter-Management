@@ -14,7 +14,7 @@ const volunteerSchema = new mongoose.Schema({
     required: true,
   },
   skills: {
-    type: String,
+    type: [String],
     required: true,
   },
   contactNumber: {
@@ -22,11 +22,8 @@ const volunteerSchema = new mongoose.Schema({
     required: true,
   },
   availability: {
-    type: String,
+    type: [String],
     required: true,
-  },
-  history: {
-    type: String,
   },
   interestAreas: {
     type: [String],

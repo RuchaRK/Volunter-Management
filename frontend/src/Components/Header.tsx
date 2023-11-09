@@ -11,13 +11,15 @@ const HeaderContainer = styled.div`
   max-height: 100px;
   height: 100%;
   align-items: center;
+  width: 100%;
 `;
 
 const Greetings = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 2px;
   flex-direction: column;
   align-items: flex-start;
+  color: #00738c;
 `;
 
 const IconContainer = styled.div``;
@@ -26,12 +28,11 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <Greetings>
-        <h3>Event Mosaic</h3>
+        <h2 style={{ fontSize: '35px' }}>Event Mosaic</h2>
+        We handle the stress so your event is a success.
       </Greetings>
 
-      <IconContainer>
-        <CgProfile size={25} />
-      </IconContainer>
+      <CgProfile size={25} />
     </HeaderContainer>
   );
 };

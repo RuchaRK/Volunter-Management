@@ -16,7 +16,7 @@ const FirstSection = styled.div(
   height: 160px;
   width: 100%;
   border-radius: 12px;
-  background-image: var(--liner-gradian-blue, linear-gradient(68deg, #9083D5 9.64%, #807593 92.49%));, url(${img});
+  background-image:  linear-gradient(90deg, #0098B9 0.17%, #003844 99.84%);, url(${img});
   display: flex;
   justify-content: space-between;
   padding: 4px 32px;

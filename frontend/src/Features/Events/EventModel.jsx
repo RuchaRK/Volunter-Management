@@ -11,7 +11,7 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
     eventName: '',
     location: '',
     description: '',
-    date: '',
+    date: '2023-12-05T14:30:00',
     roleSpecificVolunteers: [{}]
   };
 
@@ -21,26 +21,14 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
     }
   }, [wizardStatus]);
 
-  const onSubmit = (values, { setErrors }) => {
-    // Check if the roleSpecificVolunteers array is empty
-    if (
-      !values.roleSpecificVolunteers ||
-      values.roleSpecificVolunteers.length === 0 ||
-      values.roleSpecificVolunteers.role === '' ||
-      values.roleSpecificVolunteers.volunteers === ''
-    ) {
-      setErrors({
-        roleSpecificVolunteers: 'At least one role-specific volunteer is required.'
-      });
-      return;
-    }
+  const onSubmit = (values) => {
     handleSubmit(values);
   };
 
   return (
     <div>
       <Model isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik initialValues={initialState ? initialState : initialValues} onSubmit={onSubmit}>
           {({ values }) => {
             return (
               <Form>

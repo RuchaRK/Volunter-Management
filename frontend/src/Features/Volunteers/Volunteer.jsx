@@ -5,6 +5,7 @@ import { ListPage } from '../../Components/ListPage';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { EditVolunteer } from './EditVolunteer';
 import { VolunteerModel } from './VolunteerModel';
+import { Link } from 'react-router-dom';
 
 export const Volunteer = () => {
   const { status, error, volunteers } = useSelector((state) => state.volunteers);
@@ -43,15 +44,18 @@ export const Volunteer = () => {
 
       <div>
         <ListPage
-          column={['Event Name', 'Location', 'Date', 'Time']}
+          column={['Name', 'Age', 'Skills', 'Contact Number', 'Assigned Events']}
           data={volunteers.map((subject) => [
-            subject.eventName,
-            subject.location,
-            new Date(subject.date).toISOString().split('T')[0],
-            new Date(subject.date).toISOString().split('T')[1].split('.')[0],
+            <Link to={subject._id}>{subject.name}</Link>,
+            subject.age,
+            subject.skills,
+
+            subject.contactNumber,
+
+            subject.assignedEvents?.map((event) => event.eventName).join(','),
 
             <EditVolunteer key={subject._id} objectToShow={subject} />,
-            <button key={subject._id} onClick={() => deleteEventById(subject._id)}>
+            <button key={subject._id} onClick={() => deleteVolunteerById(subject._id)}>
               <AiOutlineDelete />
             </button>
           ])}
@@ -60,7 +64,11 @@ export const Volunteer = () => {
           image=""
           openForm={openModal}
         />
-        <VolunteerModel modalIsOpen={modalIsOpen} closeModal={closeModal} handleSubmit={addNewEvent} />
+        <VolunteerModel
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          handleSubmit={addNewVolunteer}
+        />
       </div>
     </div>
   );

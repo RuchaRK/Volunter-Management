@@ -6,11 +6,6 @@ export const fetchVolunteers = createAsyncThunk('volunteers/fetchVolunteers', as
   return response.data?.allVolunteers;
 });
 
-export const fetchAVolunteer = createAsyncThunk('volunteers/fetchAVolunteer', async (id) => {
-  const response = await axios.get(`/api/volunteers/${id}`);
-  return response.data?.volunteer;
-});
-
 export const addVolunteer = createAsyncThunk('volunteers/addVolunteer', async (newVolunteer) => {
   const response = await axios.post('/api/volunteers', newVolunteer);
   return response.data?.allVolunteers;
@@ -45,25 +40,12 @@ export const volunteerSlice = createSlice({
       state.status = 'loading';
     },
     [fetchVolunteers.fulfilled]: (state, action) => {
-      console.log(action);
       state.status = 'success';
       state.volunteers = action.payload;
     },
     [fetchVolunteers.rejected]: (state, action) => {
       state.status = 'error';
-      console.log(action.error.message);
-      state.error = action.error.message;
-    },
-    [fetchAVolunteer.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [fetchAVolunteer.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.volunteer = action.payload;
-    },
-    [fetchAVolunteer.rejected]: (state, action) => {
-      state.status = 'error';
-      console.log(action.error.message);
+
       state.error = action.error.message;
     },
     [addVolunteer.pending]: (state) => {

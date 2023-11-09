@@ -6,11 +6,6 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
   return response.data?.allEvents;
 });
 
-export const fetchAEvent = createAsyncThunk('events/fetchAEvent', async (id) => {
-  const response = await axios.get(`/api/events/${id}`);
-  return response.data?.event;
-});
-
 export const addEvent = createAsyncThunk('events/addEvent', async (newEvent) => {
   console.log(newEvent);
   const response = await axios.post('/api/events', newEvent);
@@ -47,17 +42,6 @@ export const eventSlice = createSlice({
       state.events = action.payload;
     },
     [fetchEvents.rejected]: (state, action) => {
-      state.status = 'error';
-      state.error = action.error.message;
-    },
-    [fetchAEvent.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [fetchAEvent.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.event = action.payload;
-    },
-    [fetchAEvent.rejected]: (state, action) => {
       state.status = 'error';
       state.error = action.error.message;
     },

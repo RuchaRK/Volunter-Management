@@ -19,9 +19,8 @@ async function showAEvent(eventId) {
 async function addNewEvent(EventData) {
   try {
     const event = new Event(EventData);
-    const newSavedEvent = await event.save();
-    console.log("New saved event", newSavedEvent);
-    return newSavedEvent;
+    await event.save();
+    return showAllEvents();
   } catch (error) {
     throw new Error(error);
   }
@@ -30,7 +29,7 @@ async function addNewEvent(EventData) {
 async function deleteEvent(EventId) {
   try {
     await Event.findByIdAndDelete(EventId);
-    return await showAllEvents();
+    return showAllEvents();
   } catch (error) {
     throw new Error(error);
   }
@@ -39,7 +38,7 @@ async function deleteEvent(EventId) {
 async function updateEvent(EventId, updateData) {
   try {
     await Event.findByIdAndUpdate(EventId, updateData);
-    return await showAllEvents();
+    return showAllEvents();
   } catch (error) {
     throw new Error(error);
   }

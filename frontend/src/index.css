@@ -59,6 +59,10 @@ button {
   text-transform: uppercase;
 }
 
+input{
+  padding:8px 12px
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -77,3 +81,6 @@ button {
   padding: 0px;
   box-sizing: border-box;
 }
+ a{
+  color:#00738C
+ }
