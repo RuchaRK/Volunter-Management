@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Model } from '../../Components/Model';
 import { ButtonContainer, FormContainer, Title } from '../../Components/Model.styles';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Select from 'react-select';
+import { fetchEvents } from '../../Reducer/event.slice';
+import { availabilityOptionsLookup, getEventOptions } from './VolunteersUtils';
 
 export const VolunteerModel = ({ modalIsOpen, closeModal, handleSubmit, initialState }) => {
   const { status, events } = useSelector((state) => state.events);
   const { wizardStatus } = useSelector((state) => state.volunteers);
+  const dispatch = useDispatch();
 
   const initialValues = {
     name: '',
@@ -22,27 +25,9 @@ export const VolunteerModel = ({ modalIsOpen, closeModal, handleSubmit, initialS
     assignedEvents: []
   };
 
-  const availabilityOptions = [
-    { value: 'weekend-morning', label: 'Weekend - Morning' },
-    { value: 'weekend-evening', label: 'Weekend - Evening' },
-    { value: 'weekdays-morning', label: 'Weekdays - Morning' },
-    { value: 'weekdays-evening', label: 'Weekdays - Evening' },
-    { value: 'flexible', label: 'Flexible' }
-  ];
+  const availabilityOptions = Object.values(availabilityOptionsLookup);
 
-  const assignedEventsOptions = React.useMemo(
-    () =>
-      events.map((program) => ({
-        value: program._id,
-        label: [
-          program.eventName,
-          program.location,
-          new Date(program.date).toISOString().split('T')[0],
-          new Date(program.date).toISOString().split('T')[1].split('.')[0]
-        ].join(' - ')
-      })),
-    [events]
-  );
+  const assignedEventsOptions = getEventOptions(events);
 
   useEffect(() => {
     if (wizardStatus === 'success') {
@@ -50,10 +35,19 @@ export const VolunteerModel = ({ modalIsOpen, closeModal, handleSubmit, initialS
     }
   }, [wizardStatus]);
 
+  React.useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchEvents());
+    }
+  }, [status, dispatch]);
+
   const onSubmit = (values) => {
-    console.log(values);
-    handleSubmit(values);
-    closeModal();
+    console.log('inside submit');
+    handleSubmit({
+      ...values,
+      availability: values.availability.map((availability) => availability.value),
+      assignedEvents: values.assignedEvents.map((event) => event.value)
+    });
   };
 
   return (
@@ -70,11 +64,27 @@ export const VolunteerModel = ({ modalIsOpen, closeModal, handleSubmit, initialS
                   Age:
                   <Field type="number" name="age" />
                   Gender:
-                  <div>
-                    <Field type="radio" name="gender" value="Male" />
-                    Male
-                    <Field type="radio" name="gender" value="Female" />
-                    Female
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '8px',
+                        alignItems: 'center'
+                      }}>
+                      <Field type="radio" name="gender" value="Male" />
+                      Male
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '8px',
+                        alignItems: 'center'
+                      }}>
+                      <Field type="radio" name="gender" value="Female" />
+                      Female
+                    </div>
                   </div>
                   Skills:
                   <Field type="text" name="skills" />
@@ -89,9 +99,9 @@ export const VolunteerModel = ({ modalIsOpen, closeModal, handleSubmit, initialS
                         {...field}
                         isMulti
                         options={availabilityOptions}
-                        onChange={(selectedOptions) =>
-                          setFieldValue('availability', selectedOptions)
-                        }
+                        onChange={(selectedOptions) => {
+                          setFieldValue('availability', selectedOptions);
+                        }}
                         value={values.availability}
                       />
                     )}

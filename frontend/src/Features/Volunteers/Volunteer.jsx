@@ -28,8 +28,6 @@ export const Volunteer = () => {
   }
 
   const addNewVolunteer = (eventData) => {
-    console.log('Hi inside add new event');
-    console.log(eventData);
     return dispatch(addVolunteer(eventData));
   };
 
@@ -48,7 +46,7 @@ export const Volunteer = () => {
           data={volunteers.map((subject) => [
             <Link to={subject._id}>{subject.name}</Link>,
             subject.age,
-            subject.skills,
+            subject.skills?.map((skill) => skill).join(','),
 
             subject.contactNumber,
 

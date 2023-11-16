@@ -67,10 +67,10 @@ export const SingleVolunteer = () => {
           keyText={'Interest Area'}
           valueText={singleVolunteer?.interestAreas.map((area) => area).join(', ')}
         />
-        <KeyValuePair
+        {/* <KeyValuePair
           keyText={'Events Previously Worked On'}
           valueText={singleVolunteer?.history.map((area) => area)}
-        />
+        /> */}
         <KeyValuePair
           keyText={'Current Events Working On'}
           valueText={singleVolunteer?.assignedEvents.map((event) => event.eventName).join(',')}

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateEvent } from '../../Reducer/event.slice';
 import { BiEdit } from 'react-icons/bi';
+import { useDispatch } from 'react-redux';
+import { updateVolunteer } from '../../Reducer/volunteer.slice';
 import { VolunteerModel } from './VolunteerModel';
+import { availabilityOptionsLookup, getEventOptions } from './VolunteersUtils';
 
 export const EditVolunteer = ({ objectToShow }) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export const EditVolunteer = ({ objectToShow }) => {
   }
 
   const editDetails = (updateData) => {
-    dispatch(updateEvent({ id: updateData._id, updateData }));
+    dispatch(updateVolunteer({ id: updateData._id, updateData }));
   };
 
   return (
@@ -30,7 +31,13 @@ export const EditVolunteer = ({ objectToShow }) => {
         modalIsOpen={editModal}
         closeModal={closeEditModal}
         handleSubmit={editDetails}
-        initialState={objectToShow}
+        initialState={{
+          ...objectToShow,
+          availability: objectToShow.availability.map(
+            (availability) => availabilityOptionsLookup[availability]
+          ),
+          assignedEvents: getEventOptions(objectToShow.assignedEvents)
+        }}
       />
     </div>
   );

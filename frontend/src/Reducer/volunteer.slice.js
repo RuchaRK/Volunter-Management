@@ -45,7 +45,6 @@ export const volunteerSlice = createSlice({
     },
     [fetchVolunteers.rejected]: (state, action) => {
       state.status = 'error';
-
       state.error = action.error.message;
     },
     [addVolunteer.pending]: (state) => {
@@ -56,7 +55,8 @@ export const volunteerSlice = createSlice({
       state.volunteers = action.payload;
     },
     [addVolunteer.rejected]: (state, action) => {
-      (state.wizardError = 'error'), (state.error = action.error.message);
+      state.wizardError = 'error';
+      state.wizardStatus = 'error';
     },
     [deleteVolunteer.pending]: (state) => {
       state.wizardStatus = 'loading';
@@ -66,7 +66,8 @@ export const volunteerSlice = createSlice({
       state.volunteers = action.payload;
     },
     [deleteVolunteer.rejected]: (state, action) => {
-      (state.wizardError = 'error'), (state.error = action.error.message);
+      state.wizardError = 'error';
+      state.wizardStatus = 'error';
     },
     [updateVolunteer.pending]: (state) => {
       state.wizardStatus = 'loading';
@@ -76,7 +77,8 @@ export const volunteerSlice = createSlice({
       state.volunteers = action.payload;
     },
     [updateVolunteer.rejected]: (state, action) => {
-      (state.wizardError = 'error'), (state.error = action.error.message);
+      state.wizardError = 'error';
+      state.wizardStatus = 'error';
     }
   }
 });
