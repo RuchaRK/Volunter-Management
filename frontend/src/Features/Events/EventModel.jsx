@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Model } from '../../Components/Model';
 import { ButtonContainer, FormContainer, Title } from '../../Components/Model.styles';
 import { Formik, Field, Form, FieldArray } from 'formik';
+import { AiOutlinePlusCircle, AiFillDelete } from 'react-icons/ai';
 
 export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState }) => {
   const { wizardStatus } = useSelector((state) => state.events);
@@ -46,9 +47,9 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
                   <FieldArray name="roleSpecificVolunteers">
                     {({ push, remove }) => {
                       return (
-                        <div>
+                        <div style={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
                           {values.roleSpecificVolunteers.map((_, index) => (
-                            <div key={index}>
+                            <div key={index} style={{ display: 'flex', gap: '8px' }}>
                               <Field
                                 type="text"
                                 name={`roleSpecificVolunteers[${index}].role`}
@@ -59,13 +60,18 @@ export const EventModel = ({ modalIsOpen, closeModal, handleSubmit, initialState
                                 name={`roleSpecificVolunteers[${index}].volunteers`}
                                 placeholder="No of Volunteers"
                               />
-                              <button type="button" onClick={() => remove(index)}>
-                                Remove
-                              </button>
+                              {values.roleSpecificVolunteers.length > 1 && (
+                                <button type="button" onClick={() => remove(index)}>
+                                  <AiFillDelete />
+                                </button>
+                              )}
                             </div>
                           ))}
-                          <button type="button" onClick={() => push({ role: '', volunteers: '' })}>
-                            Add Volunteer
+                          <button
+                            type="button"
+                            onClick={() => push({ role: '', volunteers: '' })}
+                            style={{ width: 'fit-content' }}>
+                            <AiOutlinePlusCircle />
                           </button>
                         </div>
                       );
