@@ -6,12 +6,12 @@
       "command": "npm install"
     },
     {
-      "name": "n",
+      "name": "npm run install:frontend",
       "command": "npm run install:frontend"
     },
     {
-      "command": "npm run install:backend",
-      "name": "npm run install:frontend"
+      "name": "npm run install:backend",
+      "command": "npm run install:backend"
     }
   ],
 
@@ -20,7 +20,10 @@
     "npm run start": {
       "name": "npm run start",
       "command": "npm run start",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 5173
+      }
     }
   }
 }
